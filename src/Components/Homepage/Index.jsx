@@ -31,7 +31,7 @@ class Index extends Component {
 
 
   async getLastVideos() {
-    const response = await fetch('http://localhost:8000/music', {
+    const response = await fetch('https://merapi.herokuapp.com/music', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
