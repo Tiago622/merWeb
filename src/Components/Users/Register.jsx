@@ -44,7 +44,7 @@ class Register extends Component {
             username,
             nome
         }
-        const response = await fetch('http://localhost:8000/token/refresh', {
+        const response = await fetch('https://merapi.herokuapp.com/token/refresh', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ class Register extends Component {
         };
 
         //Enviar pedidos
-        const response = await fetch('http://localhost:8000/user/create', {
+        const response = await fetch('https://merapi.herokuapp.com/user/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

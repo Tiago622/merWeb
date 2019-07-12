@@ -31,7 +31,7 @@ class Index extends Component {
     }
 
     async getUsers() {
-        const response = await fetch(`http://localhost:8000/user`, {
+        const response = await fetch(`https://merapi.herokuapp.com/user`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

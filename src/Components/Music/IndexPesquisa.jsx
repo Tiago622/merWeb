@@ -23,7 +23,7 @@ class IndexPesquisa extends Component {
   }
 
   async pesquisaMusica(pesquisaARealizar) {
-    const response = await fetch(`http://localhost:8000/music/search/result/${pesquisaARealizar}`, {
+    const response = await fetch(`https://merapi.herokuapp.com/music/search/result/${pesquisaARealizar}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ class IndexPesquisa extends Component {
 
   eliminarMusica = async e => {
     const id = e.target.id;
-    const response = await fetch(`http://localhost:8000/music/${id}/delete`, {
+    const response = await fetch(`https://merapi.herokuapp.com/music/${id}/delete`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

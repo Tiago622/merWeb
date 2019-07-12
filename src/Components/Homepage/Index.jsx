@@ -68,7 +68,7 @@ class Index extends Component {
       username,
       nome
     }
-    const response = await fetch('http://localhost:8000/token/refresh', {
+    const response = await fetch('https://merapi.herokuapp.com/token/refresh', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ class Index extends Component {
       urlInput: urlInput,
       userFK: userFK
     };
-    const response = await fetch('http://localhost:8000/music/upload', {
+    const response = await fetch('https://merapi.herokuapp.com/music/upload', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -159,7 +159,7 @@ class Index extends Component {
 
   eliminarMusica = async e => {
     const id = e.target.id;
-    const response = await fetch(`http://localhost:8000/music/${id}/delete`, {
+    const response = await fetch(`https://merapi.herokuapp.com/music/${id}/delete`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

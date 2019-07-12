@@ -40,7 +40,7 @@ class Perfil extends Component {
       userID,
       isAdmin
     }
-    const response = await fetch('http://localhost:8000/token/refresh', {
+    const response = await fetch('https://merapi.herokuapp.com/token/refresh', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ class Perfil extends Component {
       userID,
       isAdmin
     }
-    const response = await fetch('http://localhost:8000/token/refresh', {
+    const response = await fetch('https://merapi.herokuapp.com/token/refresh', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ class Perfil extends Component {
     });
   }  
   getDetails = async (username) => {
-    const response = await fetch(`http://localhost:8000/user/${username}`, {
+    const response = await fetch(`https://merapi.herokuapp.com/user/${username}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -145,7 +145,7 @@ class Perfil extends Component {
 
       const password = document.getElementById('pass').value;
       const dados = { /*'nome': nome, 'email': email, 'username': username, */'hashPassword': password }
-      const response = await fetch(`http://localhost:8000/user/${usernameURL}/edit`, {
+      const response = await fetch(`https://merapi.herokuapp.com/user/${usernameURL}/edit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -200,7 +200,7 @@ class Perfil extends Component {
     }
     //Verifica se não foi preenchido algum campo
    
-    const response = await fetch(`http://localhost:8000/user/${usernameURL}/edit`, {
+    const response = await fetch(`https://merapi.herokuapp.com/user/${usernameURL}/edit`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

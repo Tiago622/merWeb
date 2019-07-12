@@ -50,7 +50,7 @@ class Header extends Component {
             nome,
             isAdmin
         }
-        const response = await fetch('http://localhost:8000/token/refresh', {
+        const response = await fetch('https://merapi.herokuapp.com/token/refresh', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ class Header extends Component {
 
         const pesquisaMusica = document.getElementById('searchMusicas').value;
 
-        const response = await fetch(`http://localhost:8000/music/search/${pesquisaMusica}`, {
+        const response = await fetch(`https://merapi.herokuapp.com/music/search/${pesquisaMusica}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
