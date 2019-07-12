@@ -1,0 +1,25 @@
+#urlInput{
+  width: 600px;
+
+}
+
+::-webkit-input-placeholder {
+  font-style: italic;
+}
+
+#frame {
+  width: 500px;
+  height: 350px;
+  padding: 15px 15px 15px 15px;
+  border: 0;
+}
+
+
+#likes{
+  font-size:16px;
+}
+
+#users{
+  color: black;
+}
+
