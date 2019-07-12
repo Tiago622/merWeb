@@ -180,7 +180,7 @@ class Header extends Component {
                                         return (
                                             <div className="collapse navbar-collapse" id="navbarText">
                                                 <li className="nav-item active">
-                                                    <a className="nav-link" href="http://localhost:8000/api/doc">Documentação da API <span className="sr-only">(current)</span></a>
+                                                    <a className="nav-link" href="https://merweb.herokuapp.com/api/doc">Documentação da API <span className="sr-only">(current)</span></a>
                                                 </li>
                                                 <li className="nav-item active">
                                                     <span className="nav-link"> | </span>
