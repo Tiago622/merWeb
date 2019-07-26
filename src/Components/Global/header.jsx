@@ -100,7 +100,7 @@ class Header extends Component {
         });
     }
 
-    
+
     handleSubmitOnSubmit = async e => {
 
         e.preventDefault();
@@ -140,7 +140,7 @@ class Header extends Component {
     render() {
 
         return (
-            <nav className="navbar navbar-expand-lg navbar-light bg-warning">
+            <header className="navbar navbar-expand-lg navbar-light bg-warning">
                 <a className="navbar-brand" href="/" style={{ paddingLeft: '35px' }}>
                     <img
                         src={logo}
@@ -169,9 +169,7 @@ class Header extends Component {
                             <a className="nav-link" href="/sobre">Sobre <span className="sr-only">(current)</span></a>
                         </li>
 
-                        <li className="nav-item active">
-                            <span className="nav-link"> | </span>
-                        </li>
+                      
 
                         {
                             (() => {
@@ -179,8 +177,11 @@ class Header extends Component {
                                     if (this.getRole() === true) {
                                         return (
                                             <div className="collapse navbar-collapse" id="navbarText">
+                                                 <li className="nav-item active">
+                                                    <span className="nav-link"> | </span>
+                                                </li>
                                                 <li className="nav-item active">
-                                                    <a className="nav-link" href="https://merweb.herokuapp.com/api/doc">Documentação da API <span className="sr-only">(current)</span></a>
+                                                    <a className="nav-link" href="https://merapi.herokuapp.com/api/doc">Documentação da API <span className="sr-only">(current)</span></a>
                                                 </li>
                                                 <li className="nav-item active">
                                                     <span className="nav-link"> | </span>
@@ -192,6 +193,8 @@ class Header extends Component {
                             })()
 
                         }
+
+
                         {/*CRIAR NOVOS UTILZIADORES | LISTAR*/}
                         {
                             (() => {
@@ -206,14 +209,27 @@ class Header extends Component {
                                                     <a className="dropdown-item" href="/utilizadores"><i className="fa fa-th-list"></i> Listar</a>
                                                     <a className="dropdown-item" href="/registar"><i className="fa fa-plus"></i> Registar</a>
                                                 </div>
+                                                
                                             </li>
+                                            
+                                            
                                         )
                                     }
                                 }
 
                             })()
                         }
+                        <li className="nav-item active">
+                            <span className="nav-link"> | </span>
+                        </li>
+                        
+                        <li className="nav-item active">
+                            <a className="nav-link" href="/music/processing/get">Músicas em Processamento <span className="sr-only">(current)</span></a>
+                        </li>
 
+                        <li className="nav-item active">
+                            <span className="nav-link"> | </span>
+                        </li>
                     </ul>
 
 
@@ -226,7 +242,7 @@ class Header extends Component {
                         <div className="modal-dialog" role="document">
                             <div className="modal-content">
                                 <div className="modal-header">
-                                    <h5 className="modal-title" id="exampleModalLabel">Procura</h5>
+                                    <h5 className="modal-title" id="exampleModalLabel">Procure músicas classificadas</h5>
                                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -268,7 +284,7 @@ class Header extends Component {
                         </li> */}
 
                 </div>
-            </nav>
+            </header>
         );
     }
 }

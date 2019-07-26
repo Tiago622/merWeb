@@ -72,7 +72,6 @@ class Login extends Component {
     return (
 
       <div className="container h-100">
-        <h1 className="titleLogin">Efetue login:</h1>
         <div className="d-flex justify-content-center h-100">
           <div className="user_card">
           <div className="d-flex justify-content-center">

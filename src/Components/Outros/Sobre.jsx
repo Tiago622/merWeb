@@ -5,7 +5,7 @@ class Sobre extends Component {
     return (
 
       <div className="Inicio container">
-        <div className="container">
+        <div className="containerPerfil">
           <div className="row">
             <div className="col-md-12 mb-3">
               <h1 className="display-3 text-center">Sobre</h1>
@@ -14,9 +14,10 @@ class Sobre extends Component {
           <br />
 
           <div className="row">
+            <center>
             {/*IMAGEM*/}
             <div>
-              <img id="imagem" src="../../logo.png" alt="" />
+              <img id="imagem" src="../../logo.png" alt="" width="250" />
             </div>
 
             {/*INFORMAÇÃO*/}
@@ -38,6 +39,7 @@ class Sobre extends Component {
               </p>
 
             </div>
+            </center>
           </div>
 
         </div>

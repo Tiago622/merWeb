@@ -10,6 +10,7 @@ import PerfilPage from './MasterComponents/Users/PerfilPage'
 import IndexPesquisaPage from './MasterComponents/Music/IndexPesquisaPage';
 import SobrePage from './MasterComponents/Outros/SobrePage';
 import UsersPage from './MasterComponents/Users/IndexPage';
+import ProcessingMusicPage from './MasterComponents/Music/ProcessingMusicPage'
 
 ReactDOM.render(
     <BrowserRouter>
@@ -27,6 +28,7 @@ ReactDOM.render(
 
             {/*MUSICAS*/}
             <Route path="/music/pesquisa/:query" component={(r) => <IndexPesquisaPage query={r.match.params.query} />} />
+            <Route path="/music/processing" component={ProcessingMusicPage} />
 
             <Route path='*' component={NotFindPage} />
 

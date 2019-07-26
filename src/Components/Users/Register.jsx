@@ -67,15 +67,14 @@ class Register extends Component {
         });
     }
 
-    redirecionar() {
-        window.location = "/";
-    }
 
 
     handleSubmit = async e => {
         e.preventDefault();
         //Objeto Login
         //verificar o role
+        var botao = document.getElementById('criarUtilizador');
+        botao.style.display = "none";
         var role = true;
         var tipoUtilizador = document.getElementById('tipoUtilizador').value;
         if (tipoUtilizador === "Não Administrador") {
@@ -109,6 +108,7 @@ class Register extends Component {
                         alertisNotVisible: false,
                         alertColor: "warning"
                     });
+                    botao.style.display="block";
                     break;
                 case "Erros na validação":
                     this.setState({ data: resp.response });
@@ -117,6 +117,7 @@ class Register extends Component {
                         alertisNotVisible: false,
                         alertColor: "warning"
                     });
+                    botao.style.display="block";
                     break;
                 case "Utilizador Criado com Sucesso":
                     this.setState({
@@ -124,13 +125,20 @@ class Register extends Component {
                         alertisNotVisible: false,
                         alertColor: "success"
                     });
-                    setTimeout(this.redirecionar, 2000);
+                    setTimeout(() => {
+                        botao.style.display = "block";
+                        window.location = "/";
+                      }, 2000);
+
                     break;
                 case "Nao está autenticado | token expirou":
+                        botao.style.display = "block";
+
                     this.refreshToken();
                     this.handleSubmit(e);
                     break;
                 default:
+                        botao.style.display = "block";
                     console.log(this.state.alertText)
             }
         });
@@ -146,7 +154,7 @@ class Register extends Component {
 
                             <div className="row">
                                 <div className="col-md-12 mb-3">
-                                    <h1 className="display-4 ">Criar novo utilizador</h1>
+                                    <h1 className="display-4 " style={{color:"white"}}>Criar novo utilizador</h1>
                                 </div>
                             </div>
                             <AlertMsg
@@ -187,7 +195,7 @@ class Register extends Component {
                                                         <div className="form-group row">
                                                             <label htmlFor="password" className="col-md-4 col-form-label text-md-right">Password</label>
                                                             <div className="col-md-6">
-                                                                <input type="password" id="password" className="form-control" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Introduza pelo menos 8 caracteres, incluindo letras maíusculas, minusculas, algarismos e caracteres especiais" required></input>
+                                                                <input type="password" id="password" className="form-control"  title="Introduza pelo menos 8 caracteres, incluindo letras maíusculas, minusculas, algarismos e caracteres especiais" required></input>
                                                             </div>
                                                         </div>
                                                         <div className="form-group row">
@@ -198,7 +206,7 @@ class Register extends Component {
                                                             </select>
                                                         </div>
                                                         <div className="col-md-6 offset-md-4">
-                                                            <button type="submit" className="btn">
+                                                            <button type="submit" className="btn" id="criarUtilizador">
                                                                 Criar Utilizador
                                                             </button>
                                                         </div>
