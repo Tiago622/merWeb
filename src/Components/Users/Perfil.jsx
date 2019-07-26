@@ -5,6 +5,7 @@ import AlertMsg2 from '../Global/AlertMsg';
 import AlertMsg3 from '../Global/AlertMsg';
 import AlertMsg4 from '../Global/AlertMsg';
 
+
 import React, { Component } from "react";
 var jwt = require('jsonwebtoken');
 
@@ -66,7 +67,7 @@ class Perfil extends Component {
     const dados = {
       listaFK: listaFK
     }
-    const response = await fetch('https://merapi.herokuapp.com/listmusic/get', {
+    const response = await fetch('http://localhost:8000/listmusic/get', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -83,37 +84,37 @@ class Perfil extends Component {
 
           break;
         case "Existem músicas nesta lista":
-            
-              this.setState({ dataMusicListas: resp.response });
+
+          this.setState({ dataMusicListas: resp.response });
 
           break;
-          case "Nao está autenticado | token expirou":
-              this.refreshToken();
-              this.getMusicasLista(listaFK);
-              break;
-  
+        case "Nao está autenticado | token expirou":
+          this.refreshToken();
+          this.getMusicasLista(listaFK);
+          break;
+
         default: console.log("erro ao listar musicas de uma lista")
       }
     });
   }
 
-async excluiMusica(listaFK,musicFK){
-  const dados = {
-    listaFK:listaFK,
-    musicFK:musicFK
-  }
-  const response = await fetch('https://merapi.herokuapp.com/listmusic/delete', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-access-token': sessionStorage.getItem('token')
-    },
-    body: JSON.stringify(dados)
-  });
-  await response.json().then(resp => {
-    let status = resp.status;
-    switch(status){
-      case "Música Eliminada da lista com sucesso":
+  async excluiMusica(listaFK, musicFK) {
+    const dados = {
+      listaFK: listaFK,
+      musicFK: musicFK
+    }
+    const response = await fetch('http://localhost:8000/listmusic/delete', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': sessionStorage.getItem('token')
+      },
+      body: JSON.stringify(dados)
+    });
+    await response.json().then(resp => {
+      let status = resp.status;
+      switch (status) {
+        case "Música Eliminada da lista com sucesso":
           this.setState({
             alertText: "Música Eliminada da lista com sucesso",
             alertisNotVisible: false,
@@ -121,21 +122,21 @@ async excluiMusica(listaFK,musicFK){
           });
           window.location.reload();
           break;
-      case "Musica não eliminada da lista":
-        break;
+        case "Musica não eliminada da lista":
+          break;
         case "Nao está autenticado | token expirou":
-            this.refreshToken();
-            this.excluiMusica(listaFK,musicFK);
-            break;
+          this.refreshToken();
+          this.excluiMusica(listaFK, musicFK);
+          break;
 
-      default:console.log("erro a apagar a música da lista")
-    }
+        default: console.log("erro a apagar a música da lista")
+      }
 
-  });
+    });
 
-}
+  }
 
-criaLista = async e => {
+  criaLista = async e => {
 
     e.preventDefault();
     var decoded = jwt.decode(sessionStorage.getItem('token'));
@@ -145,7 +146,7 @@ criaLista = async e => {
       nomeLista: nomeLista
     }
 
-    const response = await fetch('https://merapi.herokuapp.com/list/create', {
+    const response = await fetch('http://localhost:8000/list/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -157,15 +158,15 @@ criaLista = async e => {
       let status = resp.status;
       switch (status) {
         case "Lista criada":
-            this.setState({
-              alertText: " Lista criada.",
-              alertisNotVisible: false,
-              alertColor: "success"
-            });
-            setTimeout(() => {
-              window.location="/perfil";
-            }, 2000);
-            break;
+          this.setState({
+            alertText: " Lista criada.",
+            alertisNotVisible: false,
+            alertColor: "success"
+          });
+          setTimeout(() => {
+            window.location = "/perfil";
+          }, 2000);
+          break;
         case "Já existe uma lista com o nome escolhido":
           this.setState({
             alertText: " Já existe uma lista com o nome escolhido.",
@@ -173,7 +174,7 @@ criaLista = async e => {
             alertColor: "warning"
           });
           break;
-      case "Nao está autenticado | token expirou":
+        case "Nao está autenticado | token expirou":
           this.refreshToken();
           this.criaLista(e);
           break;
@@ -183,9 +184,9 @@ criaLista = async e => {
 
   }
 
-  async apagaLista(listaID){
-   
-    const response = await fetch(`https://merapi.herokuapp.com/list/${listaID}/delete`, {
+  async apagaLista(listaID) {
+
+    const response = await fetch(`http://localhost:8000/list/${listaID}/delete`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -194,29 +195,29 @@ criaLista = async e => {
     });
     await response.json().then(resp => {
       let status = resp.status;
-      switch(status){
+      switch (status) {
         case "Lista Eliminada com sucesso":
-            this.setState({
-              alertText: " Lista eliminada com sucesso.",
-              alertisNotVisible: false,
-              alertColor: "success"
-            });
-            setTimeout(() => {
-              window.location="/perfil";
-            }, 2000);
-            break;
+          this.setState({
+            alertText: " Lista eliminada com sucesso.",
+            alertisNotVisible: false,
+            alertColor: "success"
+          });
+          setTimeout(() => {
+            window.location = "/perfil";
+          }, 2000);
+          break;
         case "Lista não eliminada":
-            this.setState({
-              alertText: "A lista não foi eliminada.",
-              alertisNotVisible: false,
-              alertColor: "warning"
-            });
-            break;
+          this.setState({
+            alertText: "A lista não foi eliminada.",
+            alertisNotVisible: false,
+            alertColor: "warning"
+          });
+          break;
         case "Nao está autenticado | token expirou":
           this.refreshToken();
           this.apagaLista(listaID);
           break;
-      default:console.log("erro a eliminar lista")
+        default: console.log("erro a eliminar lista")
       }
     });
 
@@ -227,7 +228,7 @@ criaLista = async e => {
     var dados = {
       userFK: decoded.userID
     }
-    const response = await fetch('https://merapi.herokuapp.com/list/user', {
+    const response = await fetch('http://localhost:8000/list/user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -243,10 +244,10 @@ criaLista = async e => {
           break;
         case "Não existe listas":
           break;
-          case "Nao está autenticado | token expirou":
-              this.refreshToken();
-              this.listasReproducao();
-              break;
+        case "Nao está autenticado | token expirou":
+          this.refreshToken();
+          this.listasReproducao();
+          break;
         default:
       }
     });
@@ -261,7 +262,7 @@ criaLista = async e => {
     var dados = {
       userFK: userFK
     }
-    const response = await fetch('https://merapi.herokuapp.com/music/user', {
+    const response = await fetch('http://localhost:8000/music/user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -296,7 +297,7 @@ criaLista = async e => {
       userID,
       isAdmin
     }
-    const response = await fetch('https://merapi.herokuapp.com/token/refresh', {
+    const response = await fetch('http://localhost:8000/token/refresh', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -330,7 +331,7 @@ criaLista = async e => {
       userID,
       isAdmin
     }
-    const response = await fetch('https://merapi.herokuapp.com/token/refresh', {
+    const response = await fetch('http://localhost:8000/token/refresh', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -353,7 +354,7 @@ criaLista = async e => {
     });
   }
   getDetails = async (username) => {
-    const response = await fetch(`https://merapi.herokuapp.com/user/${username}`, {
+    const response = await fetch(`http://localhost:8000/user/${username}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -401,7 +402,7 @@ criaLista = async e => {
 
       const password = document.getElementById('pass').value;
       const dados = { /*'nome': nome, 'email': email, 'username': username, */'hashPassword': password }
-      const response = await fetch(`https://merapi.herokuapp.com/user/${usernameURL}/edit`, {
+      const response = await fetch(`http://localhost:8000/user/${usernameURL}/edit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -456,7 +457,7 @@ criaLista = async e => {
     }
     //Verifica se não foi preenchido algum campo
 
-    const response = await fetch(`https://merapi.herokuapp.com/user/${usernameURL}/edit`, {
+    const response = await fetch(`http://localhost:8000/user/${usernameURL}/edit`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -527,10 +528,10 @@ criaLista = async e => {
                 <br></br>
                 <button style={{ width: "100%" }} onClick={this.mostraDivListas} className="btn btn-secondary" >Consultar Listas de Reprodução</button>
                 <AlertMsg4
-                        text={this.state.alertText}
-                        isNotVisible={this.state.alertisNotVisible}
-                        alertColor={this.state.alertColor}
-                      />
+                  text={this.state.alertText}
+                  isNotVisible={this.state.alertisNotVisible}
+                  alertColor={this.state.alertColor}
+                />
 
               </div>
             </center>
@@ -538,8 +539,8 @@ criaLista = async e => {
             <center>
               <div id="listasReproUser">
                 <form onSubmit={this.criaLista} >
-                <input id="nomeLista" type="text" style={{ marginRight: "15px" }} required/>
-                <button type="submit"  >Criar nova lista</button>
+                  <input id="nomeLista" type="text" style={{ marginRight: "15px" }} required />
+                  <button type="submit"  >Criar nova lista</button>
 
                 </form>
 
@@ -553,7 +554,7 @@ criaLista = async e => {
 
                           <div >
                             <i id="aLista" data-toggle="modal" data-target={"#exampleModal" + index} onClick={() => { this.getMusicasLista(data.listaID) }} style={{ backgroundColor: "none", fontSize: "30px", marginLeft: "10px", cursor: "pointer" }}><i style={{ fontSize: "30px" }} className="fa fa-caret-square-o-right"></i>{" " + data.nomeLista}</i>
-                            <i className="fa fa-trash" style={{marginLeft:"10px",fontSize:"25px",color:"red",cursor:"pointer"}} onClick={()=>{this.apagaLista(data.listaID)}}></i>
+                            <i className="fa fa-trash" style={{ marginLeft: "10px", fontSize: "25px", color: "red", cursor: "pointer" }} onClick={() => { this.apagaLista(data.listaID) }}></i>
                           </div>
                         </div>
                         <div className="modal fade" id={"exampleModal" + index} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -563,10 +564,10 @@ criaLista = async e => {
                                 <center>
                                   <h5 className="modal-title" id="exampleModalLabel" style={{ color: "black" }}>{data.nomeLista}</h5>
                                   <AlertMsg3
-                        text={this.state.alertText}
-                        isNotVisible={this.state.alertisNotVisible}
-                        alertColor={this.state.alertColor}
-                      />
+                                    text={this.state.alertText}
+                                    isNotVisible={this.state.alertisNotVisible}
+                                    alertColor={this.state.alertColor}
+                                  />
                                 </center>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
@@ -575,17 +576,17 @@ criaLista = async e => {
                               <center>
                                 {
                                   this.state.dataMusicListas.map((data, index) => {
-                                    
+
                                     return (
-                                      
+
                                       <div key={index} className="modalMusicasLista">
                                         <p>Música {index + 1}</p>
-                                        <button style={{backgroundColor:"#d4cbcb"}}className="btn btn-light" onClick={()=>{this.excluiMusica(data.listaFK, data.musicFK)}}>Exluir música da lista</button>
+                                        <button style={{ backgroundColor: "#d4cbcb" }} className="btn btn-light" onClick={() => { this.excluiMusica(data.listaFK, data.musicFK) }}>Exluir música da lista</button>
 
                                         <p>{data.Music.name}</p>
 
                                         <iframe src={"https://www.youtube.com/embed/" + data.Music.idVideo} allowFullscreen id="video" title={data.Music.name}></iframe>
-                                        <h3 style={{ fontWeight: "lighter", color: "orange" }}>Emoçao: {data.Music.emocao}</h3>
+                                        <h3 style={{ fontWeight: "lighter", color: "orange" }}>Emoção: {data.Music.emocao}</h3>
                                         <hr></hr>
                                       </div>
                                     )
@@ -609,7 +610,7 @@ criaLista = async e => {
               <h5>Quais as músicas introduzidas por mim?</h5><button className="buttonConsultas" onClick={this.mostraDivMusicas}>Consulte Aqui<i style={{ marginLeft: "5px" }} className="fa fa-sort-down"></i></button>
             </div>
             <center>
-              <div id="musicasUser" style={{color:"black"}}>
+              <div id="musicasUser" style={{ color: "black" }}>
                 <div className="input-group mb-2 col-md-12">
 
                   {
@@ -633,8 +634,11 @@ criaLista = async e => {
 
                               <div className="justify-content-center">
                                 <p>{data.name}</p>
-                                <h5>{data.emocao}</h5>
-
+                                {(data.emocao === "") ? (
+                                  <h5>(Música está a ser classificada. Por favor aguarde.) </h5>
+                                ) : (
+                                    <h5>{data.emocao}</h5>
+                                  )}
                               </div>
 
                             </div>
@@ -657,12 +661,12 @@ criaLista = async e => {
               <div className="modal-dialog" role="document">
                 <div className="modal-content">
                   <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalLabel" style={{color:"black"}}>Alterar Password</h5>
+                    <h5 className="modal-title" id="exampleModalLabel" style={{ color: "black" }}>Alterar Password</h5>
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <div className="modal-body" style={{color:"black"}}>
+                  <div className="modal-body" style={{ color: "black" }}>
                     <form onSubmit={this.handleSubmit}>
                       <h2>Alterar Password</h2>
                       <div className="row">
@@ -711,12 +715,12 @@ criaLista = async e => {
             <div className="modal-dialog" role="document">
               <div className="modal-content">
                 <div className="modal-header">
-                  <h5 className="modal-title" id="exampleModalLabel" style={{color:"black"}}>Alterar Dados Pessoais</h5>
+                  <h5 className="modal-title" id="exampleModalLabel" style={{ color: "black" }}>Alterar Dados Pessoais</h5>
                   <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div className="modal-body" style={{color:"black"}}>
+                <div className="modal-body" style={{ color: "black" }}>
                   <form onSubmit={this.handleSubmitDados}>
                     <div className="form-group row">
                       <label htmlFor="email" className="col-md-4 col-form-label text-md-right">E-Mail</label>
