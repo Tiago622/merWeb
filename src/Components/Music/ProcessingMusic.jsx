@@ -94,11 +94,7 @@ class ProcessingMusic extends Component {
                     <div className="modal-content">
 
                       <div className="modal-body mb-0 p-0">
-                        {(sessionStorage.getItem('token') != null) ? (
-                          (this.getRole() === true) ? (
-                            <button id={data.idVideo} type="button" style={{ float: "right" }} className="btn btn-danger" onClick={this.eliminarMusica} ><i className="fa fa-trash"></i></button>
-                          ) : (<p></p>)
-                        ) : (<p></p>)}
+
                         <center>
                           <h3>{data.name}</h3>
                         </center>
